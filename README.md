@@ -21,7 +21,7 @@ i used :
 
 ** Pug (v2.0) is a [high performance template engine]
 
-![alt text](https://www.lumino.co/assets/img/tech-icons/pugjs.png | width=300)
+![](https://cdn.rawgit.com/pugjs/pug-logo/eec436cee8fd9d1726d7839cbe99d1f694692c0c/SVG/pug-final-logo-_-colour-128.svg | width=300)
 
 ** ChartJS is a [Simple HTML5 Charts using the canvas element]
 
