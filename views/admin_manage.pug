@@ -1,0 +1,42 @@
+extends layout
+
+block content
+		//- nav bar
+		nav
+			div(class = 'nav-wrapper white')
+				a(href="#" class="brand-logo left")
+					img(src='/images/logos/color/ALL.png' width='130px' style='margin:6px 0 0 0')
+				ul(id="nav-mobile" class="right")
+					li(class="brand-logo center")
+						a(href="#" class="myLogin dropdown-button green-text" data-activates='AL')
+							i(class='material-icons right green-text') verified_user
+							=adminName
+						ul(id='AL' class='dropdown-content' )
+							li: a(href='/logout')
+									i(class="material-icons") power_settings_new
+									|logout
+					li
+						a(href="/admin_manage/more" class='pink lighten-2' id='ss')
+							i(class="material-icons right") timeline
+							|More details
+					li
+						a(href="/admin_manage/products" class='light-green')
+							i(class="material-icons right light-green") business_center
+							|Products
+					li
+						a(href="/admin_manage/users" class='light-blue')
+							i(class="material-icons right light-blue") supervisor_account
+							|Users
+		//- main content
+		if(arr)
+			-var data = arr
+		else
+			-var data = []
+
+		main
+			canvas#myChart
+		script(type="text/javascript" src="/javascripts/Chart.bundle.min.js")
+		script(type="text/javascript" src="/javascripts/admin_trading.js")
+		script.
+			var data = [#{data}];
+			displayTradingChart(data);

@@ -1,0 +1,44 @@
+html
+	head
+		title=title
+		link(rel='stylesheet' type='text/css' href='stylesheets/mycss.css')
+		link(rel="icon" href="images/Funshine_Bear.ico")
+		//- jQuery 3.2.1 & jQuery 3.2.1
+		script(src="Use Materialize/javascripts/jquery-3.2.1.min.js")
+		//-script(src="Use Materialize/materialize/js/materialize.min.js")
+		//-link(href="Use Materialize/google-icons/google-material-icons.css" rel="stylesheet")
+		//-link(rel="stylesheet" href="Use Materialize/materialize/css/materialize.min.css")	
+		script(src='javascripts/jsfile.js')
+	body
+		div#main
+			form(action='/welcome' method='POST')
+				label(for='fn') First name:
+				br
+				input(type='text' id='fn' name='firstName' class='style' value=firstName required)
+				br
+				label(for='ln') Last name:
+				br
+				input(type='text' id='ln' name='lastName' class='style' value=lastName required)
+				br
+				label(for='mail') Email:
+				br
+				input(type='email' id='mail' name='email' class='style' value=email required)
+				br
+				input(type='submit' value='send')
+				input(type='button' value='auto email?' onclick='autoEmail()')
+		
+		if EmptyData
+				div.nothing
+					img.imbear(src='images/Funshine_Bear.ico')
+					em: b No data sent! try to fill all fields.
+					br
+					br
+					span.nothingdb
+						em: b Cannot Store This Info In DATABASE!
+					
+		else if EmptyData == false
+			p: img#doneimg.imbear( src='images/done.png')
+			script.
+				$('#doneimg').slideUp(200);
+				$("#doneimg").slideDown(300);
+				setTimeout(function(){$("#doneimg").fadeOut('slow');},2000);

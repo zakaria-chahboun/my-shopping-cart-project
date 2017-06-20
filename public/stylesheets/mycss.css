@@ -1,0 +1,108 @@
+.hey{
+    color: white;
+    background: red;
+}
+.hey:hover{
+    color: red;
+    background: white;
+}
+#welcome{
+    color: yellow;
+    background: black;
+}
+
+/* welcome page */
+#main{
+    text-align: center;
+    color: #aa00aa;
+    background: #efefef;
+    font-family: Gabriola;
+    font-size: 25pt;
+}
+.style{
+    width: 50%;
+    height: 40px;
+    text-align: center;
+    font-family: Gabriola;
+    font-size: 18pt;
+}
+
+#result{
+    text-align: center;
+    color: white;
+    background: rgba(209, 40, 209, 0.87);
+    font-family: Gabriola;
+    font-size: 25pt;
+}
+.result{
+    text-decoration: underline;
+}
+
+.nothing{
+    color: #f8423b;
+    background: #fffda5;
+    border: 3px solid #ede92a;
+    text-align: center;
+    font-size: 20pt;
+    font-family: Calibri;
+    padding: 15px;
+}
+.nothingdb{
+    background: #ff446f;
+    color: white;
+    margin: auto;
+    padding: 5px;
+    border-radius: 15px;
+    font-size: 12pt;
+    width: 250px;
+}
+.imbear{
+    display: block;
+    margin: 0 auto;
+    width: 100px;	
+}
+
+/* show_infos page */
+#selectInfos{
+    text-align: left;
+    color: brown;
+    background-color: antiquewhite;
+    border-left: 5px solid #fab700;
+    font-family: sans-serif;
+    position: absolute;
+    top: 100px;
+    width: 100%;
+}
+#selectInfosTitle{
+    color:#bf0d58;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    background: white;
+    box-shadow: 0px -6px 46px #000000;
+    width: 100%;
+    padding-left: 5px;
+}
+.simple{
+    border-left: 4px solid #ff9300;
+    margin: 3px;
+    padding: 3px;
+    margin-left: 6px;
+    margin-bottom: 12px;
+    text-align: left;
+    background: #F3D565;
+    color: #5c2f2f;
+    display: none;
+}
+.simple:hover{
+    cursor: pointer;
+}
+.simpleInfo{
+    color: white;
+}
+#nodoc{
+    color: darkgray;
+    text-align: center;
+    font-family: inherit;
+    font-size: 35pt;
+}

@@ -1,0 +1,45 @@
+extends layout
+
+block content
+	main(class='grey lighten-5 center')
+		div(class='loginAdmin')
+			div.center(style='margin:10px;')
+				img#ImageLOG(src='/images/logos/color/Zshop-with-border.png' width='200px' style='display:none;')
+			h4#TitleLOG(style='display:none;') welcom to admin panel
+			div(class='loginOO' id='oo')
+
+				if(logical_err)
+					- var showPanle = 'display:block'
+					- var hideLogo = 'display:none'
+					i(class='large material-icons center red-text') warning
+					div(class='logic_errors')
+						each el in logical_err
+							li= el.msg
+				if(logical_db_err)
+					- var showPanle = 'display:block'
+					- var hideLogo = 'display:none'
+					i(class='large material-icons center red-text') error
+					div(class='database_errors')= logical_db_err
+
+				i(class='large material-icons light-green-text logo' style=''+hideLogo) person_pin
+				br
+				a(class='btn-floating' id='start' style=''+hideLogo)
+					i(class='large material-icons light-green-text') menu
+
+				div#adminPanel(style=''+showPanle)
+					form(action='/admin_login' method='POST')
+						div(class='input-field')
+							i(class="material-icons prefix") star
+							input(type='email' class='validate center' placeholder='Email' value=em name='adminEmail')
+						div(class='input-field')
+							i(class="material-icons prefix") vpn_key
+							input(type='password' class='validate center' placeholder='Password' name='adminPassword')
+						div(class="input-field")
+							button(class="btn-flat waves-effect waves-light" type='submit') connect
+							i(class="material-icons prefix") input
+		
+	script(src='/javascripts/adminjs.js')
+	script.
+		$('#ImageLOG').fadeIn(2000,function(){
+			$('#TitleLOG').slideDown();
+		});

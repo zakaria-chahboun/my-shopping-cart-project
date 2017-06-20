@@ -1,0 +1,30 @@
+//- the body containt is a big row, contain sidebar(s2) & main(s10) = s12 (all screen)
+div.row
+	//-- left side bar
+	div(id='sideBar' class="col s2")
+		div.row
+			div(class="collection with-header")
+				h5(class="collection-heder blue-text") Catégories
+				div(class="divider")
+				div#categoryListPlace
+	//-- main containt
+	div(id='mainContaint' class="col s10")
+		//--- products
+		div.row
+			//- No result
+			if products.length == 0
+				div(class="collection center")
+					p(class="collection-item" style="font-size:35pt;color:#b4b4b4") No Data !
+			//- result
+			each elem in products
+				div(id=elem._id class='cont z-depth-2 col')
+					div(class='myimg')
+						img(src=elem.image class="materialboxed")
+						textarea(class='textinfo' readonly)= elem.infos
+					div(class='mytitle')
+						div(class='mytitletext')= elem.title
+					div(class='myinfo')
+						a(class="btn-floating waves-effect waves-light lime left" onclick='displayInfo(this)'): i(class="material-icons left") subject
+						a(class="btn-floating waves-effect waves-light cyan right" onclick='addToPanel(this)'): i(class="material-icons right") shopping_cart
+						p(class='money')= elem.price
+							span(class='coins') dh

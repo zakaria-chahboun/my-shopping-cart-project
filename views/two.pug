@@ -1,0 +1,12 @@
+html
+	head
+		script(src="Use Materialize/javascripts/jquery-3.2.1.min.js")
+	body
+		form(ref='uploadForm' id='uploadForm' action='/' method='post' encType="multipart/form-data")
+			input(type="file" name="sampleFile" id='file' accept=".jpg, .png")
+			input(type='submit' id='uploadbutton' value='Upload!')
+		img(src='/images/loading-circle.gif' id='load' style='display:none')
+	script.
+		$("#uploadbutton").click(function(){
+			$('#load').show();
+		});

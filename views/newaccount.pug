@@ -1,0 +1,47 @@
+extends layout
+
+block content
+	//- nav bar
+	nav
+		div(class = 'nav-wrapper orange')
+			a(href="/" class="brand-logo center")
+				img(src='/images/logos/zshop-white.png' width='130px' style='margin:6px 0 0 0')
+			ul(id="nav-mobile" class="right hide-on-med-and-down")
+				li: a(href="/")
+						i(class="material-icons right") home
+						|Home
+				li: a(href="/login")
+						i(class="material-icons right") person_pin
+						|Login
+	//- main content
+	main
+		div(class='center' id='MyLoginFrameNewAccount')
+			if(msgerr)
+					i(class='large material-icons center red-text') warning
+					div(class='logic_errors')
+						each el in msgerr
+							li= el.msg
+			if(msgerr_db)
+				i(class='large material-icons center red-text') error
+				div(class='database_errors')= msgerr_db
+				
+			form(action='/newaccount' method='POST')
+				div(class="input-field")
+					i(class="material-icons prefix") person_pin
+					input(id='accountName' value=u type='text' class="validate center" name='userName')
+					label(for="accountName") User Name
+				div(class="input-field")
+					i(class="material-icons prefix") email
+					input(id='accountEmail' value=e type='email' class="validate center" name='email')
+					label(for="accountEmail" data-error="incorrect email") Email
+				div(class="input-field")
+					i(class="material-icons prefix") lock
+					input(id='accountPassword1' type='password' class="validate center" name='password1')
+					label(for="accountPassword1" data-error="incorrect email") Password
+				div(class="input-field")
+					i(class="material-icons prefix") lock
+					input(id='accountPassword2' type='password' class="validate center" name='password2')
+					label(for="accountPassword2" data-error="incorrect email") Reply Password
+				div(class="input-field")
+					button(class="btn-flat waves-effect waves-light" type='submit') create
+					i(class="material-icons prefix") send

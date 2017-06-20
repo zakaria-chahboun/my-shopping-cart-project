@@ -1,0 +1,139 @@
+extends layout
+
+block content
+	- var navbar = [{title: 'Search',icon: 'search',url:'#',id:'id_search'}]
+	div.navbar-fixed
+		nav
+			div(class = 'nav-wrapper cyan darken-1')
+				a(href="/" class="brand-logo")
+					img(src='/images/logos/zshop-white.png' style='margin:0 0 0 10px' height='30px')
+				a(href="#" data-activates="mobile-demo" class="button-collapse")
+					i(class="material-icons") menu
+				ul(id="nav-mobile" class="right hide-on-med-and-down")
+					li: a(href='#',id='id_shopping_cart' class='cyan' onclick='showCart()')
+							i(class="large material-icons left") shopping_cart
+							|Shopping cart
+							span(id='badgeCart' class="new badge cyan lighten-4 black-text" style='font-weight:bold;' data-badge-caption="")
+								if (panelArray)
+									= panelArray
+								else
+									= 0
+					li: a(href='#',id='id_search')
+							i(class="large material-icons left") search
+							|Search
+					if (!userName)
+						li
+							a(class='dropdown-button' data-activates='myaccounts')
+								i(class='large material-icons left') person_pin
+								|Account
+							ul(id='myaccounts' class='dropdown-content' style='width:200px')
+								li: a(href='/login' class='orange-text')
+										i(class='material-icons') assignment_ind
+										|Login
+								li: a(href='/newaccount' class='orange-text')
+										i(class='material-icons') store
+										|SignUp
+					if (userName)
+						li(class="brand-logo center")
+							a(class="myLogin dropdown-button" data-activates='LoginStatus')
+								i(class="material-icons right") done
+								=userName
+							ul(id='LoginStatus' class='dropdown-content' )
+								li: a(href='/profile')
+										i(class="material-icons") account_circle
+										|profile
+								li: a(href='/logout')
+										i(class="material-icons") power_settings_new
+										|logout
+		nav#id_search_bar
+			div(class="nav-wrapper orange")
+				form(autocomplete="off" action='#' method='GET' id='searchForm' onsubmit="return false")
+					div(class="input-field")
+						input(id="searchHome" type="search" required placeholder='example: samson usb mic ...' class='autocomplete')
+						label(class="label-icon" for="searchHome")
+							i(class="material-icons") search
+						i(class="material-icons" id="clearSearch") close
+					ul(class="autocomplete-content dropdown-content" id='searchList')
+
+	//- modal
+	div(id="modalShoppingCart")
+		div(class='shopControls')
+			a(href='#' class='closeShop btn-floating red right' onclick='closeShopModal()')
+				i(class="material-icons center white-text") close
+			a(href='#' class='btn' onclick='checkOut()')
+				i(class="material-icons left white-text") shopping_cart
+				|check out
+		div(class='myModalCart')
+
+	//-- main content
+	main
+		include main_content.pug
+	include footer.pug
+
+	//- javascript
+	script.
+		var goSearch = function(obj){
+			window.location.replace('/search/id/'+obj.id);
+		}
+		// close Shopping cart modal
+		function closeShopModal(){
+		$('#modalShoppingCart').fadeOut();
+		$('body').css('overflow','auto');
+		}
+		// load categories
+		$(document).ready(function(){
+		// loading image ..
+		$('#categoryListPlace').html("<img src='/images/loading/dashinfinity.gif' />");
+		$.ajax({
+			url: '/getCategories',
+			type: 'GET',
+			success: function(data){
+					// if a good data :)
+					if(data){
+						$('#categoryListPlace').html(''); // clear
+						for (var i = 0; i < data.length; i++) {
+							var url = '/search/category/'+data[i]._id;
+							var name = data[i].name;
+							list = '<a href='+url+' class="collection-item"'
+									+'style="overflow:auto;">'
+									+name+'</a>';
+							$('#categoryListPlace').append(list);
+						}
+					}
+					/* if the data come from server with null value == no item */
+					else{
+							alert('Error!\nRestart Your Page!');
+					}
+			},
+			error: function (){
+				alert('Error!\nCheck Your Network Connection!');
+			} 
+		});
+		});
+	//- set navbar height 30px 
+	style.
+		nav {
+		    height: 30px;
+		    line-height: 30px;
+		}
+
+		nav i, nav [class^="mdi-"], nav [class*="mdi-"], nav i.material-icons {
+		    height: 30px;
+		    line-height: 30px;
+		}
+
+		nav .button-collapse i {
+		    height: 30px;
+		    line-height: 30px;
+		}
+
+		nav .brand-logo { 
+		    font-size: 1.6rem; 
+		}
+
+		@media only screen and (min-width: 601px){
+		    nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i {
+		        height: 30px;
+		        line-height: 30px;
+		    }
+		}

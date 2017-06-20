@@ -1,0 +1,10 @@
+html
+	head
+	body
+		div
+			h3 Connect to your test page
+			if err
+				p(style='color:red;')= err
+			form(action='/' method='POST')
+				input(type='text' name='name' placeholder='enter your name..')
+				input(type='submit' value='connect!')

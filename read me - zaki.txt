@@ -1,0 +1,52 @@
+﻿// :: Express JS Freamwork - zakaria chahboun | 2017
+
+step1:
+[-] Install the Express Generator by running the following from a terminal:
+
+npm install -g express-generator
+
+step2:
+[-] go to your project folder and try this command:
+
+express myExpressApp
+
+[--] This creates a new folder called myExpressApp with the contents of your application
+
+step3:
+[-] To install all of the application's dependencies, go to the new folder and execute npm install:
+
+cd myExpressApp
+npm install
+
+step4:
+[-] run server on port 3000 by default
+
+SET DEBUG=myexpressapp:* & npm start
+
+[--] http://localhost:3000
+
+
+[***] dans le "step3" si tu rencontre ce petite message :
+"npm WARN deprecated jade@1.11.0: Jade has been renamed to pug, ple
+ase install the latest version of pug instead of jade"
+-- vous devez suivre cette commnades :
+
+[-] Package
+npm install pug --save
+
+[-] Command Line
+npm install pug-cli -g
+
+[-] and run/test with
+pug --help
+
+[***] pour ne pas refait le "step3" qui plus lourd, copie le dossier "node_modules" de la premier projet et coller dans les autres projets
+
+(...) | Note: If you've been using the VS Code integrated terminal to install the Express generator and scaffold the app, you can open the "myExpressApp" folder from your running VS Code instance with the "File > Open Folder"... command.
+
+(...) | for more ♥
+https://code.visualstudio.com/docs/nodejs/nodejs-tutorial
+
+//:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+[-] for update the changed in your node js file without restart the server use :
+npm install nodemon -g

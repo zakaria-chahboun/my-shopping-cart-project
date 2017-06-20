@@ -1,0 +1,36 @@
+html
+	head
+		title=title
+		script(src="Use Materialize/javascripts/jquery-3.2.1.min.js")
+		script(src='javascripts/jsfile.js')
+		link(rel='stylesheet' type='text/css' href='stylesheets/mycss.css')
+		link(rel="icon" href="images/Funshine_Bear.ico")
+	body
+		- var user_id
+		div#selectInfos
+			// successful documents
+			if Object.keys(documents).length
+				div#selectInfosTitle: h1 List of users infos
+				each val in documents
+					- user_id = 'deletUser("'+val._id+'")'
+					p.simple(onclick=user_id)
+						span.simpleInfo ID :
+						=val._id
+						br
+						span.simpleInfo First Name :
+						=val.first_name
+						br
+						span.simpleInfo Last Name :
+						=val.last_name
+						br
+						span.simpleInfo Email :
+						=val.email
+			else
+				p#nodoc the list is empty ^^ 
+			script.
+				$('#nodoc').animate({padding: 100}, 'slow');
+				$('.simple').each(function(i){
+					$(this).delay(100 * i).fadeIn(500);
+					$("html, body").animate({ scrollTop: $(document).height() }, 1000);
+					});
+			

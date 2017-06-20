@@ -1,0 +1,201 @@
+/*********************** index page ************************/
+body{
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+main{
+    flex: 1 0 auto;
+}
+/** login name **/
+.myLogin{
+	font-size: 10pt;
+}
+.myLogin:hover{
+	text-decoration: underline;
+}
+/** nav bar search **/
+#id_search_bar{
+	display: none;
+}
+#myaccounts{
+	width: 150px !important;
+}
+
+/** modal shopping cart **/
+#modalShoppingCart{
+	background: rgba(0,0,0,0.5);
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	position: fixed;
+	top: 0;
+	left: 0;
+	overflow: auto;
+	display: none;
+}
+#modalShoppingCart .myModalCart{
+	margin: auto;
+	width: 40%;
+}
+#modalShoppingCart .shopControls{
+	position: fixed;
+	top: 30px;
+	right: 50px;
+}
+#modalShoppingCart .shopControls .closeShop{
+	display: block;
+	text-align: right;
+}
+
+/*********************** contact page ************************/
+#contactDiv{
+	margin-top: 10%;
+}
+
+/*********************** login page ************************/
+#loginConnect{
+	margin: 10%; 
+}
+.logic_errors{
+	color: #c60063;
+	background: #ffdfef;
+	border: 1px solid #c60063;
+	padding: 10px;
+	text-align: left;
+}
+.database_errors{
+	color: #5c5c5c;
+	background: #f4fc9a;
+	border: 1px solid #f8f236;
+	padding: 10px;
+	text-align: left;
+}
+
+
+/*********************** footer page ************************/
+.my_footer:hover{
+	color: yellow !important;
+}
+
+/*********************** login Admin page ************************/
+.loginAdmin{
+	width: 550px;
+	margin: auto;
+	margin-top: 35px;
+}
+.loginAdmin h4{
+	font-family: calibri;
+	color: #808080;
+}
+.loginAdmin .loginOO{
+	background: #f7f7f7;
+	border-top: 1px solid #808080;
+	border-bottom: 1px solid #808080;
+	padding: 20px;
+}
+#adminPanel{
+	display: none;
+}
+
+/*********************** manage Admin page ************************/
+#myChart{
+	padding: 25px;
+}
+
+/*********************** More page ************************/
+#myChartA,#myChartB{
+	margin: 5px;
+}
+
+/*********************** products Admin page ************************/
+.addItemCategory{
+	width: 80%;
+	background: #f2f2f2;
+	border: 1px solid #e6e6e6;
+	padding: 10px;
+	margin: auto;
+}
+.addItemCategory .title{
+	padding: 5px;
+	font-size: 12pt;
+	text-align: center;
+}
+.addItemCategory .itemCat{
+	background: white;
+	border: 1px solid #e6e6e6;
+	padding: 10px;
+}
+.addItemCategory .loadingImg{
+	display: none;
+	text-align: center;
+}
+
+.addItemCategory .loadingImg img{
+	width: 80px;
+	margin: auto;
+} 
+.addItemCategory .showErrors{
+	background: #f3fac7;
+	border: 1px solid #c3c3c3;
+	color: #f23753;
+	padding: 3px;
+}
+.addItemCategory .showErrors p{
+	text-align: center;
+	margin: auto;
+}
+.addItemCategory .successMsg{
+	background: #e1fbdd;
+	border: 1px solid #2dc117;
+	color: #1e9311;
+	padding: 3px;
+}
+.addItemCategory .successMsg p{
+	text-align: center;
+	margin: auto;
+}
+
+.myCursor{
+	cursor: pointer;
+}
+
+/*********************** products search Admin page ************************/
+.myProducts{
+	padding: 25px;
+}
+.myProducts img:hover{
+	cursor: zoom-in;
+}
+.myProducts .disc{
+	font-size: 10pt;
+}
+.myProducts .disc .infos{
+	background: #eeeeee;
+	border-radius: 10px;
+	border: 1px solid #e0e0e0;
+	padding: 12px;
+	display: none;
+}
+.myProducts .disc .infos .title{
+	background: #f7f8c9;
+	color: #7d8a85;
+	border-radius: 3px;
+	border: 1px solid #e2e741;
+	padding: 3px;
+	font-size: 8pt;
+}
+#modal1{
+	width: 100% !important;
+	height: 100% !important;
+}
+
+/*********************** Modify Admin page ************************/
+#myspace{
+	margin-top: 50px;
+}
+#myspace .mycontent{
+	margin: auto;
+	width: 40%;
+	height: inherit;
+}

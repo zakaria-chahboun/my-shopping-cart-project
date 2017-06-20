@@ -1,0 +1,67 @@
+extends layout
+
+block content
+	div.center(style='margin:10px;')
+		a(href='/')
+			img(src='/images/logos/color/ALL.png' width='200px' title='HOME')
+	div(class='center green white-text' style='padding:15px') welcome
+		|
+		|
+		=userName
+		|
+		|<br>
+		a(href='/logout' style='border:1px solid white;border-radius:3px;background:rgba(255,255,255,0.5);color:green;padding:0 10px;') logout
+	main.center
+		if (result)
+			h5(class="pink-text center") List of products
+			a(href="#" class='btn pink' onclick='PrintElem("printTab")')
+				i(class='material-icons left') print
+				|Print
+			br
+			div#printTab
+				table(class="striped" style="width:70%;margin:auto;")
+					thead
+						tr
+							th Title
+							th Quantity
+							th Date
+							th Total (DH)
+					tbody
+						each el in result
+							tr
+								td= el.title
+								td= el.quantity
+								td= el.date.getDate()
+									|/
+									=el.date.getMonth()+1
+									|/
+									=el.date.getFullYear()
+									|
+									|-
+									|
+									=el.date.getHours()
+									|:
+									=el.date.getMinutes()
+								td= el.total
+
+	include footer.pug
+	script.
+		function PrintElem(elem)
+		{
+		    var mywindow = window.open('', 'PRINT', 'height=400,width=600');
+		    var UserName = #{"'"+userName+"'"};
+
+		    mywindow.document.write('<html><head><title>' + document.title  + '</title>');
+		    mywindow.document.write('</head><body style="text-align:center;margin-top:50px">');
+		    mywindow.document.write('<h2>' + 'products List | '+UserName+ '</h2>');
+		    mywindow.document.write(document.getElementById(elem).innerHTML);
+		    mywindow.document.write('</body></html>');
+
+		    mywindow.document.close(); // necessary for IE >= 10
+		    mywindow.focus(); // necessary for IE >= 10*/
+
+		    mywindow.print();
+		    mywindow.close();
+
+		    return true;
+		}

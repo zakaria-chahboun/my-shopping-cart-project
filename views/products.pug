@@ -1,0 +1,216 @@
+extends layout
+
+block content
+	//- nav bar
+	div.navbar-fixed
+		nav
+			div(class = 'nav-wrapper white')
+				a(href="/" class="brand-logo left")
+					img(src='/images/logos/color/ALL.png' width='130px' style='margin:6px 0 0 0')
+				ul(id="nav-mobile" class="right")
+					li(class="brand-logo center")
+						a(href="#" class="myLogin dropdown-button green-text" data-activates='AL')
+							i(class='material-icons right green-text') verified_user
+							=adminName
+						ul(id='AL' class='dropdown-content' )
+							li: a(href='/logout')
+									i(class="material-icons") power_settings_new
+									|logout
+					li
+						a(href="/admin_manage/more" class='pink lighten-2')
+							i(class="material-icons right") timeline
+							|More details
+					li
+						a(href="/admin_manage/products/search" class='lime')
+							i(class="material-icons right") search
+							|Search
+					li
+						a(href="/admin_manage/users" class='light-blue')
+							i(class="material-icons right") supervisor_account
+							|Users
+	//- main content
+	main
+		//- add (item/category)
+		div.addItemCategory
+			div(class='row')
+				//- Product
+				//- Add item
+				div(class='col s8 itemCat')
+					p.title Product
+					if(formResult)
+						- var title = formResult.title
+						- var infos = formResult.infos
+						- var price = formResult.price
+						- var quantity = formResult.quantity
+					form(encType="multipart/form-data" action='/admin_manage/products/addItem' method='POST' class='row' id='itemFORM')
+						//- title
+						div(class='input-field col s12')
+							i(class="material-icons prefix") style
+							input(name='title' type='text' class='validate center' placeholder='Titre' value=title)
+						//- image
+						div(class='file-field input-field col s12')
+							i(class="material-icons prefix") image
+							input(name='image' type='file' accept=".jpg, .png")
+							div(class="file-path-wrapper")
+								input(class="file-path validate center" type="text"  placeholder='Image')
+						//- infos
+						div(class='input-field col s12')
+							i(class="material-icons prefix") edit
+							textarea(name='infos' class='materialize-textarea' placeholder="Plus d'informations..." data-length="20")=infos
+						//- price
+						div(class='input-field col s6')
+							i(class="material-icons prefix") monetization_on
+							input(name='price' type='number' class='validate center' placeholder='Prix' value=price)
+						//- quantity
+						div(class='input-field col s6')
+							i(class="material-icons prefix") widgets
+							input(name='quantity' type='number' class='validate center' placeholder='Quantité' value=quantity)
+						//- categorys list
+						div(class="input-field col s6")
+							i(class="material-icons prefix") layers
+							select(name='categorysList' id="mySelect")
+								option(value='' disabled selected) Choisissez la catégorie
+							label Catégorie
+						//- load categories	
+						div(class="input-field col s1")
+							a(class='orange-text white myCursor tooltipped' data-position="bottom" data-delay="10" data-tooltip="load categories!" id='loadCategories')
+								i(class='material-icons orange-text') keyboard_arrow_up
+						//- date
+						div(class="input-field col s5")
+							i(class="material-icons prefix") events
+							input(name='date' type="date" class="datepicker")
+
+						//- submit
+						div(class='row col s12')
+							//- btn submit
+							div(class='col s6')
+								a(class='btn waves-effect waves-light blue' id='itemSUB') Ajouter
+									i(class="material-icons right") add
+							
+							//- Error or Success MSG
+							if(itemError || itemSucc || itemErrorLogic)
+								if(itemSucc)
+									- var msgStyle = 'successMsg'
+									- var ico = 'done'
+									- var msg = itemSucc
+								if(itemError)
+									- var msgStyle = 'showErrors'
+									- var ico = 'warning'
+									- var msg = itemError
+								if(itemErrorLogic)
+									- var msgStyle = 'showErrors'
+									- var ico = 'warning'
+									- var check = true
+								div(class='col s6 '+msgStyle)
+									div(class='center'): i(class="material-icons")=ico
+									p
+										if(check)
+											each val in itemErrorLogic
+												li= val
+										else
+											=msg
+								//- image loading .. (display none by default)
+							div(class='loadingImg col s6' id='ItemMsgBlock')
+
+				//- Add Category
+				div(class='col s4 itemCat')
+					p.title Categorys
+					form(action='/admin_manage/products/addCategory' id='catFORM' method='POST' class='row')
+						//- title
+						div(class='center col s12')
+							label Ajouter une nouvelle catégorie
+						//- category field
+						div(class="input-field col s12")
+							i(class="material-icons prefix") content_paste
+							input(type='text' class='validate center' name='newCategory')
+						//- btn submit
+						div(class="col s12")
+							a(class='btn waves-effect waves-light' id='catSUB') Ajouter
+								i(class="material-icons right") add_circle
+						//- Error or Success MSG
+						if(catError || catSucc || catErrorLogic)
+							if(catSucc)
+								- var msgStyle = 'successMsg'
+								- var ico = 'done'
+								- var msg = catSucc
+							if(catError)
+								- var msgStyle = 'showErrors'
+								- var ico = 'warning'
+								- var msg = catError
+							if(catErrorLogic)
+								- var msgStyle = 'showErrors'
+								- var ico = 'warning'
+								- var msg =''
+								each val in catErrorLogic
+									- msg += val.msg
+							div(class='col s12 '+msgStyle)
+								i(class="material-icons left")=ico
+								p=msg
+		//- javascript
+		script.
+			// select initialization
+			$(document).ready(function() {
+			$('select').material_select();
+			});
+
+			// item submit form
+			$('#itemSUB').click(function(){
+				$('#itemFORM').submit();
+			});
+
+			// category submit form
+			$('#catSUB').click(function(){
+				$('#catFORM').submit();
+			});
+
+			/* load categories from database to select in view */
+			$('#loadCategories').click(function(){
+				// image loading ....
+				$('#ItemMsgBlock').show('slow',function(){
+					$('#ItemMsgBlock').html("<img src='/images/loading/ripple.gif' />");
+				// send request to server
+				$.ajax({
+				url: '/admin_manage/products/CategoryList/',
+				type: 'GET',
+				success: function(result) {
+					// hide the image loading
+					$('#ItemMsgBlock img').hide('slow',function(){
+						// send MSG susccess
+						$('#ItemMsgBlock').html(
+							"<p id='QQ' style='color:green; text-align: center;'> Tous march bien :) </p>"
+						);
+						// just a desgin ;)
+						setTimeout(function(){
+							$('#QQ').fadeOut('slow');
+						},1500);
+					});
+					// clear select
+					$('#mySelect').html('');
+					// append categories to select
+					
+					for(var i=0; i<result.categoryList.length ; i++){
+						if(i==0)
+						$('#mySelect').append($("<option value='' disabled selected>catégorie</option>"));
+						
+						$('#mySelect')
+							.append($("<option></option>")
+								.attr("value",result.categoryList[i]._id)
+									.text(result.categoryList[i].name));
+					
+					$('select').material_select();// initialization (material)
+					}
+				},
+				error: function(){
+					$('#ItemMsgBlock img').slideUp('slow');
+					$('#ItemMsgBlock').html(
+						"<p style='color:red;'> Erreur :( </p>"
+					);
+				}
+				});
+				});
+			});
+
+			/* just design : hide msg error or success after seconds */
+			setTimeout(function(){
+				$('.successMsg,.showErrors').slideUp('slow');
+			},10000);

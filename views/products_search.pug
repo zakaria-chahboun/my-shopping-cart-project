@@ -1,0 +1,110 @@
+extends layout
+
+block content
+	//- nav bar
+	div.navbar-fixed
+		nav
+			div(class = 'nav-wrapper white')
+				a(href="/" class="brand-logo left")
+					img(src='/images/logos/color/ALL.png' width='130px' style='margin:6px 0 0 0')
+				ul(id="nav-mobile" class="right")
+					li(class="brand-logo center")
+						a(href="#" class="myLogin dropdown-button green-text" data-activates='AL')
+							i(class='material-icons right green-text') verified_user
+							=adminName
+						ul(id='AL' class='dropdown-content')
+							li: a(href='/logout')
+									i(class="material-icons") power_settings_new
+									|logout
+					li
+						a(href="/admin_manage/products" class='white black-text')
+							i(class="material-icons right black-text") keyboard_backspace
+							|Go back
+					li
+						a(href="/admin_manage/more" class='pink lighten-2')
+							i(class="material-icons right") timeline
+							|More details
+					li
+						a(href="/admin_manage/users" class='light-blue')
+							i(class="material-icons right") supervisor_account
+							|Users
+	//- main content
+	main
+		//- products result
+		div.myProducts
+			ul(class="collection with-header")
+				li(class="collection-header center"): h5 Poducts
+				if(products)
+					each el in products
+						li(class="collection-item avatar" id=el._id)
+							img(src=el.image alt="" class="circle" onclick='displayImage(this)')
+							span(class="title")= el.title
+							div.disc
+								p id : 
+									=el._id
+								p price :
+									=el.price
+								p category : 
+									=el.category.name
+								p quantity : 
+									=el.quantity
+								p date : 
+									=el.date.getDate()
+									|/
+									=el.date.getMonth()+1
+									|/
+									=el.date.getFullYear()
+								div.infos(class='input-field')
+									span.title informations
+									textarea(readonly style='resize: none;border:none; height:110px;')
+										=el.infos
+							span.secondary-content
+								a(href="#!" onclick='deleteItem(this)')
+									i(class="material-icons white pink-text") delete
+								a(href="#!" onclick='ModifyItem(this)')
+									i(class="material-icons white blue-text") settings
+								a(href="#!" onclick='displayInfo(this)')
+									i(class="material-icons white blue-text") more_vert
+		//- modal
+		div(id="modal1" class="modal")
+			div(id='modal1Cont')
+		
+		//- javascript
+		script.
+			function displayImage(obj){
+			var source_image = "'"+ $(obj).attr('src') +"'";
+			console.log(source_image);
+			var image = '<img src='+source_image+' />';
+			$('#modal1Cont').html(image);
+			$('#modal1').modal('open');
+			}
+
+			function displayInfo(obj){
+			var id = $(obj).parent().parent().attr('id');
+			$('#'+id+' .disc .infos').slideToggle();
+			}
+
+			/* modification */
+			function ModifyItem(obj){
+			var id = $(obj).parent().parent().attr('id');
+			window.location.replace("/admin_manage/products/search/modify/"+id);
+			}
+			// delet item
+			var deleteItem = function(obj){
+				var id = $(obj).parent().parent().attr('id');
+
+				var check = confirm('Are you sure to you want to delete this product!');
+				if(check)
+				{
+					$.ajax({
+					url: '/admin_manage/products/search/'+id,
+					type: 'DELETE',
+					success: function(result){
+					window.location.replace('/admin_manage/products/search');
+					},
+					error: function(){
+					alert('Error!\nCheck Your Network Connection! or Restart this page');
+					}
+					});
+				}
+			}

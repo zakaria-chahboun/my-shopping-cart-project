@@ -1,0 +1,46 @@
+extends layout
+
+block content
+	//- nav bar
+	nav
+		div(class = 'nav-wrapper light-green')
+			a(href="/" class="brand-logo center")
+				img(src='/images/logos/zshop-white.png' width='130px' style='margin:6px 0 0 0')
+			ul(id="nav-mobile" class="right hide-on-med-and-down")
+				li
+					a(href="/")
+						i(class="material-icons right") home
+						|Home
+				li
+					a(href="/newaccount")
+						i(class="material-icons right") store
+						|New Account
+	//- main content
+	main
+		//- connect account
+		div(class='center' id='loginConnect')
+			if(msgerr)
+				i(class='large material-icons center red-text') warning
+				div(class='logic_errors')
+					each el in msgerr
+						li= el.msg
+			if(msgerr_db_pass)
+				- var crp = 'red'
+				i(class='large material-icons center red-text') error
+				div(class='database_errors')= msgerr_db_pass
+			if(msgerr_db_em)
+				- var cre = 'red'
+				i(class='large material-icons center red-text') error
+				div(class='database_errors')= msgerr_db_em
+
+			form(action="/login" method="POST")
+				div(class="input-field")
+					i(class="material-icons prefix") account_circle
+					input(id='loginEmail' name='email' type='email' class='validate center '+cre placeholder='example@example.com' value=em)
+				div(class="input-field")
+					i(class="material-icons prefix") lock
+					input(id='loginPassword' name='pass' type='password' class="validate center "+crp placeholder='■■■■■■■■■' value=pass)
+				div(class="input-field")
+					button(class="btn-flat waves-effect waves-light" type='submit') connect
+					i(class="material-icons prefix") thumb_up
+		

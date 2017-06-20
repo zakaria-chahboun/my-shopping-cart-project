@@ -1,0 +1,101 @@
+extends layout
+
+block content
+	//- nav bar
+	nav
+		div(class = 'nav-wrapper lime')
+			a(href="/" class="brand-logo center")
+				img(src='/images/logos/zshop-white.png' width='130px' style='margin:6px 0 0 0')
+			ul(id="nav-mobile" class="right hide-on-med-and-down")
+				li
+					a(href="/")
+						i(class="material-icons right") home
+						|Home
+	//- main content
+	main.center
+		if (errors)
+			i(class="large material-icons pink-text") error
+			div.database_errors
+				each el in errors
+					li= el.msg
+			a(href="/") go back
+		if (noQuantity)
+			i(class="large material-icons pink-text") warning
+			div.database_errors
+				each el in noQuantity
+					li= el.msg
+			a(href="/") go back
+
+		if (results)
+			- var totalPrice = 0
+			h5(class="blue-text center") List of products
+			br
+			div#printTab
+				table(class="striped" style="width:70%;margin:auto;")
+					thead
+						tr
+							th Title
+							th Quantity
+							th Price (DH)
+					tbody
+						each el in results
+							- totalPrice+=el.price
+							tr
+								td= el.title
+								td= el.quantity
+								td= el.price
+				
+				p Total (
+					=totalPrice
+					|
+					|DH)
+			br
+			form(action='/buy' method='post' id='buyFORM')
+				a(href="#" class='btn blue' id='buy')
+					i(class='material-icons left') shopping_cart
+					|Buy
+
+			a(href="#" class='btn pink' onclick='PrintElem("printTab")')
+				i(class='material-icons left') print
+				|Print
+			br
+			br
+			a(href="/") go back
+
+		if (buy)
+			p(class='green-text')= buy
+			div
+				img(src='/images/local/thankyou.png')
+			a(href="/profile") my profile
+
+
+	script.
+		$('#buy').click(function(){
+			$('#buyFORM').submit();
+		});
+
+		function PrintElem(elem)
+		{
+		    var mywindow = window.open('', 'PRINT', 'height=400,width=600');
+		    var UserName = #{"'"+userName+"'"};
+		    var currentDate = new Date();
+		    var day = currentDate.getDate();
+		    var month = currentDate.getMonth()+1;
+		    var year = currentDate.getFullYear();
+		    var dateString = day+'/'+month+'/'+year;
+
+		    mywindow.document.write('<html><head><title>' + document.title  + '</title>');
+		    mywindow.document.write('</head><body style="text-align:center;margin-top:100px">');
+		    mywindow.document.write('<h2>' + 'products List | '+UserName+ '</h2>');
+		    mywindow.document.write(document.getElementById(elem).innerHTML);
+		    mywindow.document.write(dateString);
+		    mywindow.document.write('</body></html>');
+
+		    mywindow.document.close(); // necessary for IE >= 10
+		    mywindow.focus(); // necessary for IE >= 10*/
+
+		    mywindow.print();
+		    mywindow.close();
+
+		    return true;
+		}

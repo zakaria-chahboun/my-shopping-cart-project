@@ -1,0 +1,9 @@
+extends layout
+
+block content
+	p(class='center pink-text')= message
+	p(class='center red-text')= error.status
+	div(class='center')
+		img(src='/images/local/404.png' width=100)
+		br
+		a(href='/'): em home page

@@ -1,0 +1,67 @@
+/** css for main style ( main_containt page ) **/
+
+.cont{
+		width: 250px !important;
+		height: 350px !important;	
+		padding:0 !important;	
+		background: gray;
+		margin-top: 10px;
+		margin-right: 5px;
+	}
+	.cont .mytitle{
+		height: 40px;			
+		background: white;
+		border-top: 1px solid #eaeaea;
+		border-bottom: 1px solid #eaeaea;
+		text-align : center;
+	}
+	.cont .mytitle .mytitletext{
+		width: 240px;
+		height: 40px;
+		margin:auto;
+		color: #595959;
+		overflow:auto;
+		word-wrap: break-word;
+	}
+	.cont .myimg{
+		height : 250px;
+		background: #f7f7f7;
+	}
+	.cont .myimg img{
+		width: 240px;
+		height: 240px;
+		background: white;
+		display:block;
+		margin:auto;
+		cursor: pointer;
+	}
+	.cont .myimg .textinfo{
+		width: 240px;
+		height: 240px;
+		background: white;
+		text-align: left;
+		border-top: none;
+		border-bottom: none;
+		border-left: 2px solid #dbdbdb;
+		border-right: 2px solid #dbdbdb;
+		padding: 5px;
+		display: none;
+		margin:auto;
+		resize: none;
+		/*overflow:auto;*/
+		/*word-wrap: break-word;*/
+	}
+	.cont .myinfo{
+		height : 60px;
+		background: white;
+		padding: 10px;
+	}
+	.cont .myinfo .money{
+		height : 30px;
+		width: 100px;
+		color: #8e8e8e;		
+		padding: 10px;
+		text-align:center;
+		font-weight: bold;
+		margin:auto;
+	}

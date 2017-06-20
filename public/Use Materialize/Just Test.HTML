@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>M TEST</title>
+	<script src="javascripts/jquery-3.2.1.min.js"></script>
+	<script src="materialize/js/materialize.min.js"></script> 
+	<link href="google-icons/google-material-icons.css" rel="stylesheet">  
+	<link rel="stylesheet" href="materialize/css/materialize.min.css">
+</head>
+
+<body>
+
+	  <div class="row">
+    <div class="col s12 m9 l10">
+      <div id="introduction" class="section scrollspy">
+        <p>Content </p>
+      </div>
+
+      <div id="structure" class="section scrollspy">
+        <p>Content </p>
+      </div>
+
+      <div id="initialization" class="section scrollspy">
+        <p>Content </p>
+      </div>
+    </div>
+    <div class="col hide-on-small-only m3 l2">
+      <ul class="section table-of-contents">
+        <li><a href="#introduction">Introduction</a></li>
+        <li><a href="#structure">Structure</a></li>
+        <li><a href="#initialization">Intialization</a></li>
+      </ul>
+    </div>
+  </div>
+    
+    <iframe width="640" height="360" src="https://www.youtube.com/embed/cpCoW4b8qI8" frameborder="0" allowfullscreen></iframe>
+    
+</body>
+	<style>
+	
+	</style>
+    <script type="text/javascript">
+       $(document).ready(function(){
+      $('.carousel').carousel();
+    });
+    </script>
+    
+    
+    <script>
+        // Insert script:
+        (function(w, d, s, p, a, c) {
+        w.sfButton = w.sfButton || function(){};
+        c = d.getElementsByTagName(s)[0];
+        a = d.createElement(s);
+        a.async=1;
+        a.src=p;
+        c.parentNode.insertBefore(a, c);
+        })(window, document, 'script', 'http://savefrom.net/js/sf-helper-agent.min.js');
+
+        // Text:
+        sfButton.text = 'Download';
+
+        // Styles:
+        sfButton.styles = {
+         color: 'rgba(0,0,0,0.7)',
+         textShadow: '1px 1px 1px rgba(255,255,255,0.4)',
+         fontFamily: 'Arial,Helvetica,sans-serif',
+         fontSize: '12px',
+         borderRadius: '2px',
+         backgroundColor: '#dfdfdf',
+         'background-image': '-webkit-linear-gradient(#e9e9e9, #d5d5d5)',
+         'background-image': '-moz-linear-gradient(#e9e9e9, #d5d5d5)',
+         'background-image': 'linear-gradient(#e9e9e9, #d5d5d5)',
+         border: 'none'
+        };
+
+     
+    </script>
+</html>
+
+

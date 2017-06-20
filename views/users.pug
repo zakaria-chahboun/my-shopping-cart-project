@@ -1,0 +1,85 @@
+extends layout
+
+block content
+	//- nav bar
+	nav
+		div(class = 'nav-wrapper white')
+			a(href="/admin_manage" class="brand-logo left")
+				img(src='/images/logos/color/ALL.png' width='130px' style='margin:6px 0 0 0')
+			ul(id="nav-mobile" class="right")
+				li(class="brand-logo center")
+					a(href="#" class="myLogin dropdown-button green-text" data-activates='AL')
+						i(class='material-icons right green-text') verified_user
+						=adminName
+					ul(id='AL' class='dropdown-content' )
+						li: a(href='/logout')
+								i(class="material-icons") power_settings_new
+								|logout
+				li
+					a(href="/admin_manage/more" class='pink lighten-2' id='ss')
+						i(class="material-icons right") timeline
+						|More details
+				li
+					a(href="/admin_manage/products" class='light-green')
+						i(class="material-icons right light-green") business_center
+						|Products
+	//- main content
+	main
+		p(style='color:#dd2276;font-size:20pt;').center Users List
+		if (users)
+			ul(class="collection")
+				each el in users
+					li(class="collection-item")
+						div
+							p.conv=el.name
+							p.conv=el.email
+							p.conv= el.date.getDate()
+								|/
+								=el.date.getMonth()+1
+								|/
+								=el.date.getFullYear()
+								|
+								|-
+								|
+								=el.date.getHours()
+								|:
+								=el.date.getMinutes()
+							a(href="#" class="secondary-content" onclick='delUser(this)' id=el._id)
+								i(class="material-icons red-text del-myuser") delete
+							span(class="secondary-content")
+								i(class="material-icons grey-text") assignment_turned_in
+		else
+			p.center NO USERS !
+
+	style.
+		.del-myuser:hover
+		{
+			color:#ff9194 !important;
+		}
+
+		.conv
+		{
+			display: inline;
+			padding: 5px;
+			margin-right: 6px;
+			border: 1px solid #d3d3d3;
+			border-radius: 8px;
+		}
+
+	script.
+		function delUser(user){
+			if(confirm('Are you sure!')){
+				var ID = user.id;
+				var URL = '/admin_manage/users/'+ID;
+				$.ajax({
+					url: URL,
+					type: 'DELETE',
+					success: function(data){
+						window.location.replace('/admin_manage/users/');
+					},
+					error: function (){
+						alert('Error!\nCheck Your Network Connection!');
+					} 
+				});
+			}
+		}

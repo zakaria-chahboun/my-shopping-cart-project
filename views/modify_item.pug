@@ -1,0 +1,165 @@
+extends layout
+
+block content
+	//- nav bar
+	div.navbar-fixed
+		nav
+			div(class = 'nav-wrapper white')
+				a(href="/" class="brand-logo left")
+					img(src='/images/logos/color/ALL.png' width='130px' style='margin:6px 0 0 0')
+				ul(id="nav-mobile" class="right")
+					li(class="brand-logo center")
+						a(href="#" class="myLogin dropdown-button green-text" data-activates='AL')
+							i(class='material-icons right green-text') verified_user
+							=adminName
+						ul(id='AL' class='dropdown-content' )
+							li: a(href='/logout')
+									i(class="material-icons") power_settings_new
+									|logout
+					li
+						a(href="/admin_manage/more" class='pink lighten-2')
+							i(class="material-icons right") timeline
+							|More details
+					li
+						a(href="/admin_manage/products/search" class='lime')
+							i(class="material-icons right") search
+							|Search
+					li
+						a(href="/admin_manage/users" class='light-blue')
+							i(class="material-icons right") supervisor_account
+							|Users
+	//- main content
+	main(id='myspace')
+		div(class='mycontent')
+			//- for modify errors
+			if (modifyErr)
+				div(class='showErrors red-text' style='border:1px solid gray;padding:10px;')
+					each el in modifyErr
+						li=el.msg
+			if (Succ)
+				div(class='green-text center' style='border:1px solid green;padding:10px;')
+					p(style='font-weight:bold;')= Succ
+					p#showSucc redirect to search page in 3
+
+			if (Xrror)
+				div(style='color:red;font-size:20pt;')= Xrror
+			//- if data
+			if (Item)
+				form(action='/admin_manage/products/search/modify/' method='POST' class='row' id='itemFORM')
+					//- id
+					div(class='input-field col s12')
+						dive.title Product ID :
+						input(name='ids' type='text' class='center' readonly value=Item._id)
+					//- title
+					div(class='input-field col s12')
+						i(class="material-icons prefix") style
+						input(name='title' type='text' class='validate center' placeholder='Titre' value=Item.title)
+					//- infos
+					div(class='input-field col s12')
+						i(class="material-icons prefix") edit
+						textarea(name='infos' class='materialize-textarea' placeholder="Plus d'informations..." data-length="20")= Item.infos
+					//- price
+					div(class='input-field col s6')
+						i(class="material-icons prefix") monetization_on
+						input(name='price' type='number' class='validate center' placeholder='Prix' value=Item.price)
+					//- quantity
+					div(class='input-field col s6')
+						i(class="material-icons prefix") widgets
+						input(name='quantity' type='number' class='validate center' placeholder='Quantité' value=Item.quantity)
+					//- categorys list
+					div(class="input-field col s10")
+						i(class="material-icons prefix") layers
+						select(name='categorysList' id="mySelect")
+							option(value=Item.category._id selected)= Item.category.name
+						label Catégorie
+					//- load categories	
+					div(class="input-field col s2")
+						a(class='orange-text white myCursor tooltipped' data-position="bottom" data-delay="10" data-tooltip="load categories!" id='loadCategories')
+							i(class='material-icons orange-text') keyboard_arrow_up
+
+					//- submit
+					div(class='row col s12')
+						//- btn submit
+						div(class='col s6')
+							a(class='btn waves-effect waves-light orange' id='itemSUB') Modify
+								i(class="material-icons right") settings
+						div(class='col s6')
+							div(id='ItemMsgBlock')
+			else if (!Item && !Succ)
+				div(style='color:gray;font-size:20pt;') No data! 
+
+	//- javascript
+	script.
+		// select initialization
+		$(document).ready(function() {
+		$('select').material_select();
+		});
+
+		// item submit form
+		$('#itemSUB').click(function(){
+			$('#itemFORM').submit();
+		});
+
+		/* load categories from database to select in view */
+		$('#loadCategories').click(function(){
+			// image loading ....
+			$('#ItemMsgBlock').show('slow',function(){
+				$('#ItemMsgBlock').html("<img src='/images/loading/ripple.gif' />");
+			// send request to server
+			$.ajax({
+			url: '/admin_manage/products/CategoryList/',
+			type: 'GET',
+			success: function(result) {
+				// hide the image loading
+				$('#ItemMsgBlock img').hide('slow',function(){
+					// send MSG susccess
+					$('#ItemMsgBlock').html(
+						"<p id='QQ' style='color:green; text-align: center;'> Tous march bien :) </p>"
+					);
+					// just a desgin ;)
+					setTimeout(function(){
+						$('#QQ').fadeOut('slow');
+					},1500);
+				});
+				// clear select
+				$('#mySelect').html('');
+				// append categories to select
+				
+				for(var i=0; i<result.categoryList.length ; i++){
+					if(i==0)
+					$('#mySelect').append($("<option value='' disabled selected>catégorie</option>"));
+					
+					$('#mySelect')
+						.append($("<option></option>")
+							.attr("value",result.categoryList[i]._id)
+								.text(result.categoryList[i].name));
+				
+				$('select').material_select();// initialization (material)
+				}
+			},
+			error: function(){
+				$('#ItemMsgBlock img').slideUp('slow');
+				$('#ItemMsgBlock').html(
+					"<p style='color:red;'> Erreur :( </p>"
+				);
+			}
+			});
+			});
+		});
+
+		/* just design : hide msg error or success after seconds */
+		setTimeout(function(){
+			$('.showErrors').slideUp('slow');
+		},10000);
+
+		/* redirect in success to page */
+		var i = 2;
+		if($('#showSucc').length)
+		{
+			setInterval(function(){
+				$('#showSucc').html('redirect to search page in '+i);
+				i--;
+				if(i == 0)
+					window.location.replace("/admin_manage/products/search");
+			},1000);
+		}

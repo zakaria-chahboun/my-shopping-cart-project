@@ -1,0 +1,18 @@
+﻿:::: Use This Tags For HTML5 - Respect The Order ::::
+[-] jQuery 3.2.1
+<script src="javascripts/jquery-3.2.1.min.js"></script> 
+
+[-] Materialize Javascript
+<script src="materialize/js/materialize.min.js"></script>
+
+[-] Google icons
+<link href="google-icons/google-material-icons.css" rel="stylesheet">
+
+[-] Materialize CSS
+<link rel="stylesheet" href="materialize/css/materialize.min.css">
+
+
+[:::::: Zakaria Chahboun | 2017 ::::::]
+[-] How to use materialize : http://materializecss.com/
+[-] For more icons : https://material.io/icons/
+
