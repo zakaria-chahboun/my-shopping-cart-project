@@ -1,3 +1,4 @@
+// just for testing 
 
 var mongoose = require('mongoose');
 var Shop = require('./models/shop'); // load shop Model from Models
