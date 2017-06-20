@@ -30,4 +30,13 @@ i used :
 
 and more like javascript(client side), Css3..
 
+** Some Screenshots **
+
+<img src='https://raw.githubusercontent.com/zakaria-chahboun/my-shopping-cart-project/master/screenshots/background.PNG' width='500px' alt='home page'/>
+
+<img src='
+https://raw.githubusercontent.com/zakaria-chahboun/my-shopping-cart-project/master/screenshots/Admin%20Acc%20Products.PNG' width='500px' alt='add product or category'/>
+
+<img src='https://raw.githubusercontent.com/zakaria-chahboun/my-shopping-cart-project/master/screenshots/Admin%20Account%20More%20Details.png' width='500px' alt='statistics'/>
+
 :: zakaria chahboun ::
