@@ -1,6 +1,6 @@
 # my shopping cart project
 
-hello! this is a simple shpping cart project
+hello! this is a simple shopping cart project
 <br>
 i used :
 
